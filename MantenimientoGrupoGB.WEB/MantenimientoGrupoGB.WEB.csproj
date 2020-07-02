@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MantenimientoGrupoGB.BL\MantenimientoGrupoGB.BL.csproj" />
+    <ProjectReference Include="..\MantenimientoGrupoGB.EN\MantenimientoGrupoGB.EN.csproj" />
+  </ItemGroup>
+
+</Project>

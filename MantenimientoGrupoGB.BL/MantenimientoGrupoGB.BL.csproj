@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MantenimientoGrupoGB.DAL\MantenimientoGrupoGB.DAL.csproj" />
+    <ProjectReference Include="..\MantenimientoGrupoGB.EN\MantenimientoGrupoGB.EN.csproj" />
+  </ItemGroup>
+
+</Project>
