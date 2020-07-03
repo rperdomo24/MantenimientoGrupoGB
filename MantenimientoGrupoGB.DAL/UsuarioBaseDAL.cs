@@ -26,47 +26,61 @@ namespace MantenimientoGrupoGB.DAL
             this._dbGrupoGB = dbGrupoGB;
         }
 
-        public async Task<Guid> AgregarObjeto(UsuarioBase pObjeto)
+        public async Task<int> AgregarObjeto(UsuarioBase pObjeto)
         {
-            Guid result = Guid.Empty;
+            int result =0;
             // INICIO DE TRANSACCION 
             using var Transaccion = _dbGrupoGB.Database.BeginTransaction();
 
-            //Insertamos unicamente la entidad y esperamos su Id GUID
-            _dbGrupoGB.Entry(pObjeto).State = EntityState.Added;
+            try
+            {
+                //Insertamos unicamente la entidad y esperamos su Id GUID
+                _dbGrupoGB.Entry(pObjeto).State = EntityState.Added;
 
-            // SI TODO ES CORRECTO GUARDAMOS 
-            _dbGrupoGB.SaveChanges();
+                // SI TODO ES CORRECTO GUARDAMOS 
+                _dbGrupoGB.SaveChanges();
 
-            await Transaccion.CommitAsync();
+                await Transaccion.CommitAsync();
 
-            //CONSULTAMOS SU INSERT EXITOSO Y RETORNAMOS SU ID
-            if (_dbGrupoGB.UsuarioBase.AsNoTracking().Any(X => X.IdUsuario == pObjeto.IdUsuario && !X.EstadoEliminado))
-                result = pObjeto.IdUsuario;
-
+                //CONSULTAMOS SU INSERT EXITOSO Y RETORNAMOS SU ID
+                if (_dbGrupoGB.UsuarioBase.AsNoTracking().Any(X => X.IdUsuario == pObjeto.IdUsuario && !X.EstadoEliminado))
+                    result = pObjeto.IdUsuario;
+            }
+            catch (Exception ex)
+            {
+                await Transaccion.RollbackAsync();
+            }
             return result;
         }
 
-        public async Task<int> EliminarObjeto(Guid pIdObjeto)
+        public async Task<int> EliminarObjeto(int pIdObjeto)
         {
             int result = 0;
             using var Transaccion = _dbGrupoGB.Database.BeginTransaction();
 
-            // CONSULTAMOS USUARIO CON LA CONDICION DE NO DAR SEGUIMIENTO AL OBJETO (ASNOTRAKING())
-            var Objeto = await _dbGrupoGB.UsuarioBase
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.IdUsuario == pIdObjeto && !x.EstadoEliminado);
+            try
+            {
+                // CONSULTAMOS USUARIO CON LA CONDICION DE NO DAR SEGUIMIENTO AL OBJETO (ASNOTRAKING())
+                var Objeto = await _dbGrupoGB.UsuarioBase
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.IdUsuario == pIdObjeto && !x.EstadoEliminado);
 
-            //SETEAMOS NUEVA DATA
-            Objeto.FechaModificacion = DateTime.Now;
-            Objeto.FechaEliminacion = DateTime.Now;
-            Objeto.EstadoEliminado = false;
+                //SETEAMOS NUEVA DATA
+                Objeto.FechaModificacion = DateTime.Now;
+                Objeto.FechaEliminacion = DateTime.Now;
+                Objeto.EstadoEliminado = false;
 
-            //ACTUALIZAMOS
-            _dbGrupoGB.UsuarioBase.Update(Objeto);
+                //ACTUALIZAMOS
+                _dbGrupoGB.UsuarioBase.Update(Objeto);
 
-            result = _dbGrupoGB.SaveChanges();
-            await Transaccion.CommitAsync();
+                result = _dbGrupoGB.SaveChanges();
+                await Transaccion.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+
+                await Transaccion.RollbackAsync();
+            }
 
             return result;
         }
@@ -77,13 +91,19 @@ namespace MantenimientoGrupoGB.DAL
             // INICIO DE TRANSACCION 
             using var Transaccion = _dbGrupoGB.Database.BeginTransaction();
 
-            //Insertamos unicamente la entidad y esperamos su Id GUID
-            await _dbGrupoGB.AddRangeAsync(pObjeto);
+            try
+            {
+                //Insertamos unicamente la entidad y esperamos su Id GUID
+                await _dbGrupoGB.AddRangeAsync(pObjeto);
+                // SI TODO ES CORRECTO GUARDAMOS 
+                result = _dbGrupoGB.SaveChanges();
+                await Transaccion.CommitAsync();
+            }
+            catch (Exception)
+            {
+                await Transaccion.RollbackAsync();
+            }
 
-            // SI TODO ES CORRECTO GUARDAMOS 
-            result = _dbGrupoGB.SaveChanges();
-
-            await Transaccion.CommitAsync();
 
             return result;
         }
@@ -95,19 +115,24 @@ namespace MantenimientoGrupoGB.DAL
             // INICIO DE TRANSACCION 
             using var Transaccion = _dbGrupoGB.Database.BeginTransaction();
 
-            // SE ACTUALIZA EL OBJETO PROVEEDOR A LA BASE DE DATOS PREVIAMENTE LLENO
+            try
+            {
+                // SE ACTUALIZA EL OBJETO PROVEEDOR A LA BASE DE DATOS PREVIAMENTE LLENO
+                _dbGrupoGB.Entry(pObjeto).State = EntityState.Modified;
 
-            _dbGrupoGB.Entry(pObjeto).State = EntityState.Modified;
-
-            // SI TODO ES CORRECTO GUARDAMOS 
-            result = _dbGrupoGB.SaveChanges();
-            // CERRAMOS TRANSACCION Y SINO SE HACE ROLLBACK() POR EL USING
-            await Transaccion.CommitAsync();
-
+                // SI TODO ES CORRECTO GUARDAMOS 
+                result = _dbGrupoGB.SaveChanges();
+                // CERRAMOS TRANSACCION Y SINO SE HACE ROLLBACK() POR EL USING
+                await Transaccion.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                await Transaccion.RollbackAsync();
+            }
             return result;
         }
 
-        public async Task<UsuarioBase> ObtenerObjeto(Guid idUsuario)
+        public async Task<UsuarioBase> ObtenerObjeto(int idUsuario)
         {
             var result = await _dbGrupoGB.UsuarioBase
                 .AsNoTracking()

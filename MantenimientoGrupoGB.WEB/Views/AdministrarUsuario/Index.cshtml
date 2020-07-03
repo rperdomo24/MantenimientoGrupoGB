@@ -1,0 +1,111 @@
+﻿@model IEnumerable<MantenimientoGrupoGB.EN.Model.UsuarioBase>
+
+@{ ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                ADMINSITRACION DE USUARIO
+            </h3>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="text-center">
+                            LISTA DE USUARIOS AGREGADOS
+                        </h3>
+                        <a type="button" class="btn btn-w-m btn-primary d-inline m-2" href="@Url.Action("Create", "AdministrarUsuario")" style="min-width: 175px; min-height:40px; font-size:15px"><i class="fa fa-plus" aria-hidden="true"></i> NUEVO</a>
+                        <table class="table" id="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Nombres)
+                                    </th>
+                                    <th class="no-sort">
+                                        @Html.DisplayNameFor(model => model.Apellidos)
+                                    </th>
+                                    <th class="no-sort">
+                                        @Html.DisplayNameFor(model => model.Dui)
+                                    </th>
+                                    <th class="no-sort">
+                                        @Html.DisplayNameFor(model => model.Nit)
+                                    </th>
+                                    <th class="no-sort">
+                                        @Html.DisplayNameFor(model => model.Isss)
+                                    </th>
+                                    <th class="no-sort">
+                                        @Html.DisplayNameFor(model => model.Telefono)
+                                    </th>
+                                    <th class="no-sort">
+                                        @Html.DisplayNameFor(model => model.FechaNacimiento)
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/lib/datatables/css/dataTables.bootstrap4.min.css" asp-append-version="true" />
+}
+
+@section Scripts{
+    <script src="~/lib/momentjs/moment.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datetime-moment/datetime-moment.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js" asp-append-version="true"></script>
+
+    <script src="~/js/Index.js" asp-append-version="true"></script>
+
+    <script>
+        function EliminarProveedor(Titulo, Texto, type, idUsuario) {
+            swal({
+                title: Titulo,
+                text: Texto,
+                type: type,
+                button: "Aceptar",
+                confirmButtonColor: "#0f7096",
+                icon: "warning",
+                showCancelButton: true,
+                closeOnConfirm: true,
+                closeOnCancel: true,
+                dangerMode: true,
+                html: true
+            },
+                function (isConfirm) {
+
+                    if (isConfirm) {
+                        $.ajax(
+                            {
+                                async: true,
+                                method: 'POST',
+                                cache: false,
+                                url: '@Url.Action("Delete", "AdministrarUsuario")',
+                                data: {
+                                    IdUsuario: idUsuario
+                                },
+                                success: function (response) {
+                                    response = response.data;
+                                    if (response) {
+                                        toastr.success("Proveedor eliminado exitosamente");
+                                    } else {
+                                        toastr.error('Hubo un error al intentar eliminar el proveedor')
+                                    }
+                                }
+                            })
+                        }
+                });
+    }
+    </script>
+
+}

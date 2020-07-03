@@ -1,0 +1,73 @@
+﻿@model MantenimientoGrupoGB.EN.Model.UsuarioBase
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                ADMINSITRACION DE USUARIO
+            </h3>
+            <h4 class="text-center">
+                CREACION DE USUARIO
+            </h4>
+            <form asp-action="Create" asp-controller="AdministrarUsuario" method="post">
+                <div class="form-group">
+                    <label asp-for="Nombres"></label>
+                    <input asp-for="Nombres" id="Nombres" class="form-control form_imput" lang="es" />
+                    <span asp-validation-for="Nombres" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Apellidos"></label>
+                    <input asp-for="Apellidos" id="Apellidos" class="form-control form_imput" lang="es" />
+                    <span asp-validation-for="Apellidos" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaNacimiento"></label>
+                    <input asp-for="FechaNacimiento" type="text" id="FechaNacimiento" class="form-control form_imput" lang="es" />
+                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Dui"></label>
+                    <input asp-for="Dui" id="Dui" class="form-control form_imput" lang="es" />
+                    <span asp-validation-for="Dui" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nit"></label>
+                    <input asp-for="Nit" id="Nit" class="form-control form_imput" lang="es" />
+                    <span asp-validation-for="Nit" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Isss"></label>
+                    <input asp-for="Isss" id="Isss" class="form-control form_imput" lang="es" />
+                    <span asp-validation-for="Isss" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Telefono"></label>
+                    <input asp-for="Telefono" id="Telefono" class="form-control form_imput" lang="es" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+                <div class="d-inline">
+                    <button class="btn btn-primary">Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#FechaNacimiento').mask('15/12/1994');
+            $('#Dui').mask('00000000-0');
+            $('#Nit').mask('0000-000000-000-0');
+            $('#Isss').mask('000000000');
+            $('#Telefono').mask('+000-0000-00000');
+        });
+    </script>
+
+}

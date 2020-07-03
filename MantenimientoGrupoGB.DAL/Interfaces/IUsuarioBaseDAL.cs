@@ -16,7 +16,7 @@ namespace MantenimientoGrupoGB.DAL.Interfaces
         /// </summary>
         /// <param name="idUsuario">ID DE USUARIO</param>
         /// <returns>RETORNA UN OBJETO USUARIO SI ES ENCONTRADO Y SE ENCUENTRA HABILITADO</returns>
-        Task<UsuarioBase> ObtenerObjeto(Guid idUsuario);
+        Task<UsuarioBase> ObtenerObjeto(int idUsuario);
 
         /// <summary>
         /// OBTIENE UNA LISTA DE USUARIOS SI SU ESTADO ES HABILITADO
@@ -29,7 +29,7 @@ namespace MantenimientoGrupoGB.DAL.Interfaces
         /// </summary>
         /// <param name="pObjeto">OBJETO TIPO USUARIO LLENO</param>
         /// <returns>RETORNA EL ID GUID DEL USUARIO INSERTADOS</returns>
-        Task<Guid> AgregarObjeto(UsuarioBase pObjeto);
+        Task<int> AgregarObjeto(UsuarioBase pObjeto);
 
         /// <summary>
         /// METODO PARA MODIFICAR UN USUARIO
@@ -43,7 +43,7 @@ namespace MantenimientoGrupoGB.DAL.Interfaces
         /// </summary>
         /// <param name="pIdObjeto">ID DEL USUARIO</param>
         /// <returns>RETORNA UN INT MAYOR A 0 SI SE HA REALIZADO ACCION EXITOSAMENTE</returns>
-        Task<int> EliminarObjeto(Guid pIdObjeto);
+        Task<int> EliminarObjeto(int pIdObjeto);
 
         /// <summary>
         /// INSERTA DE FORMA MASIVA USUARIOS

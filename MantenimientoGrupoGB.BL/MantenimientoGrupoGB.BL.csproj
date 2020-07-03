@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MantenimientoGrupoGB.DAL\MantenimientoGrupoGB.DAL.csproj" />
     <ProjectReference Include="..\MantenimientoGrupoGB.EN\MantenimientoGrupoGB.EN.csproj" />
   </ItemGroup>

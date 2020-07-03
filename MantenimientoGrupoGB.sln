@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MantenimientoGrupoGB.BL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MantenimientoGrupoGB.DAL", "MantenimientoGrupoGB.DAL\MantenimientoGrupoGB.DAL.csproj", "{ED48A8BB-DF49-4833-BB6C-23754654E42E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MantenimientoGrupoGB.CROSS", "MantenimientoGrupoGB.CROSS\MantenimientoGrupoGB.CROSS.csproj", "{B5F64132-0482-4452-BF21-97AB305AF5D8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{ED48A8BB-DF49-4833-BB6C-23754654E42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED48A8BB-DF49-4833-BB6C-23754654E42E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED48A8BB-DF49-4833-BB6C-23754654E42E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5F64132-0482-4452-BF21-97AB305AF5D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5F64132-0482-4452-BF21-97AB305AF5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5F64132-0482-4452-BF21-97AB305AF5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5F64132-0482-4452-BF21-97AB305AF5D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
