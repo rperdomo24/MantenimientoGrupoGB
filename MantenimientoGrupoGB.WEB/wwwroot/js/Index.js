@@ -49,8 +49,8 @@
                 "mRender": function (data, type, row, meta) {
                     console.log(data);
                     var url = "/AdministrarUsuario";
-                    var EditaData = "<a href='" + url + "/Update/" + data.idUsuario + "' class='btn btn-warning'>Modificar</a>";
-                    var Deletedata = "<a href='#' onclick='EliminarProveedor('Confirmar eliminar', 'esta seguro que desea eliminar el usuario?', warning, " + data.idUsuario + ")' class='btn btn-danger'>Eliminar</a>";
+                    var EditaData = "<a href='" + url + "/Update?IdUsuario=" + data.idUsuario + "' class='btn btn-warning'>Modificar</a>";
+                    var Deletedata = "<buttton onclick='EliminarProveedor(" + data.idUsuario + ");' class='btn btn-danger'>Eliminar</button>";
                     var result = "<div class='btn-group mr-2' role='group' aria-label='First group'>";
                     result += EditaData;
                     result += Deletedata;
@@ -58,6 +58,21 @@
                     return result;
                 }
             }
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excel',
+                text: 'EXPORTAR',
+                className: 'btn btn-success',
+                filename: 'evaluación',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6],
+                    modifier: {
+                        page: 'all'
+                    }
+                }
+            },
         ],
         //Column Definitions
         columnDefs: [

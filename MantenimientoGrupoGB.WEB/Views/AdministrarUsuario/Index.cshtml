@@ -17,7 +17,7 @@
                         <h3 class="text-center">
                             LISTA DE USUARIOS AGREGADOS
                         </h3>
-                        <a type="button" class="btn btn-w-m btn-primary d-inline m-2" href="@Url.Action("Create", "AdministrarUsuario")" style="min-width: 175px; min-height:40px; font-size:15px"><i class="fa fa-plus" aria-hidden="true"></i> NUEVO</a>
+                        <a type="button" class="btn btn-w-m btn-primary d-inline m-1" href="@Url.Action("Create", "AdministrarUsuario")" style="min-width: 175px; min-height:40px; font-size:15px"><i class="fa fa-plus" aria-hidden="true"></i> NUEVO</a>
                         <table class="table" id="table">
                             <thead>
                                 <tr>
@@ -65,14 +65,21 @@
     <script src="~/lib/datetime-moment/datetime-moment.js" asp-append-version="true"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.js" asp-append-version="true"></script>
 
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+
+
     <script src="~/js/Index.js" asp-append-version="true"></script>
 
     <script>
-        function EliminarProveedor(Titulo, Texto, type, idUsuario) {
+        function EliminarProveedor(idUsuario) {
             swal({
-                title: Titulo,
-                text: Texto,
-                type: type,
+                title: "Confirmar eliminar",
+                text: "Esta seguro que desea eliminar el usuario?",
+                type: "warning",
                 button: "Aceptar",
                 confirmButtonColor: "#0f7096",
                 icon: "warning",
@@ -98,6 +105,7 @@
                                     response = response.data;
                                     if (response) {
                                         toastr.success("Proveedor eliminado exitosamente");
+                                        setTimeout(location.reload(), 10000);
                                     } else {
                                         toastr.error('Hubo un error al intentar eliminar el proveedor')
                                     }

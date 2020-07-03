@@ -11,7 +11,7 @@ namespace MantenimientoGrupoGB.EN.Model
     {
         [Key]
         public int IdUsuario { get; set; }
-      
+
         [StringLength(50)]
         [Required(ErrorMessage = "El nombre es requerido")]
         [Display(Name = "Nombres", Prompt = "ROBERTO ESAU")]
@@ -36,12 +36,14 @@ namespace MantenimientoGrupoGB.EN.Model
         [Column("NIT")]
         [Required(ErrorMessage = "Número de NIT es requerido")]
         [Display(Name = "Número de NIT", Prompt = "0000-000000-000-0")]
+        [MinLength(17)]
         [StringLength(17)]
         public string Nit { get; set; }
         
         [Column("ISSS")]
         [Required(ErrorMessage = "Número de ISSS es requerido")]
         [Display(Name = "Número de ISSS", Prompt = "000000000")]
+        [MinLength(9)]
         [StringLength(9)]
 
         public string Isss { get; set; }
@@ -49,6 +51,7 @@ namespace MantenimientoGrupoGB.EN.Model
         [Required(ErrorMessage = "Número de telefono es requerido")]
         [Display(Name = "Número de telefono", Prompt = "+503-7586-5911")]
         [StringLength(14)]
+        [MinLength(14)]
         public string Telefono { get; set; }
 
         [JsonIgnore]

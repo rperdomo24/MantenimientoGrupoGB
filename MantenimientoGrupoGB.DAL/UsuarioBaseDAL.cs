@@ -68,7 +68,7 @@ namespace MantenimientoGrupoGB.DAL
                 //SETEAMOS NUEVA DATA
                 Objeto.FechaModificacion = DateTime.Now;
                 Objeto.FechaEliminacion = DateTime.Now;
-                Objeto.EstadoEliminado = false;
+                Objeto.EstadoEliminado = true;
 
                 //ACTUALIZAMOS
                 _dbGrupoGB.UsuarioBase.Update(Objeto);
@@ -117,8 +117,25 @@ namespace MantenimientoGrupoGB.DAL
 
             try
             {
-                // SE ACTUALIZA EL OBJETO PROVEEDOR A LA BASE DE DATOS PREVIAMENTE LLENO
-                _dbGrupoGB.Entry(pObjeto).State = EntityState.Modified;
+                // CONSULTAMOS USUARIO CON LA CONDICION DE NO DAR SEGUIMIENTO AL OBJETO (ASNOTRAKING())
+                var Objeto = await _dbGrupoGB.UsuarioBase
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.IdUsuario == pObjeto.IdUsuario && !x.EstadoEliminado);
+
+                //SETEAMOS NUEVA DATA
+
+
+                Objeto.Nombres = pObjeto.Nombres;
+                Objeto.Apellidos = pObjeto.Apellidos;
+                Objeto.FechaNacimiento = pObjeto.FechaNacimiento;
+                Objeto.Dui = pObjeto.Dui;
+                Objeto.Nit = pObjeto.Nit;
+                Objeto.Isss = pObjeto.Isss;
+                Objeto.Telefono = pObjeto.Telefono;
+                Objeto.FechaModificacion = DateTime.Now;
+
+                //ACTUALIZAMOS
+                _dbGrupoGB.UsuarioBase.Update(Objeto);
 
                 // SI TODO ES CORRECTO GUARDAMOS 
                 result = _dbGrupoGB.SaveChanges();

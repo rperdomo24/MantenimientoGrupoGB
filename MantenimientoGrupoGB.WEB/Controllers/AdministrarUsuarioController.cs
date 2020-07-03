@@ -57,7 +57,7 @@ namespace MantenimientoGrupoGB.WEB.Controllers
 
             }
 
-            return View("Create");
+            return View("Index");
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace MantenimientoGrupoGB.WEB.Controllers
             result = await _usuarioBaseBL.ObtenerObjeto(IdUsuario);
             if (result != null)
             {
-                _toastNotification.AddSuccessToastMessage("Usuario creado exitosamente");
+                _toastNotification.AddInfoToastMessage("Usuario obtenido con exito");
                 return View(result);
             }
             else
@@ -109,8 +109,9 @@ namespace MantenimientoGrupoGB.WEB.Controllers
             if (IdUsuario > 0)
             {
                 int result = await _usuarioBaseBL.EliminarObjeto(IdUsuario);
-                if (result > 200)
+                if (result > 0)
                 {
+                    _toastNotification.AddSuccessToastMessage("Eliminado exitosamente");
                     return Json(new { data = result });
                 }
                 else

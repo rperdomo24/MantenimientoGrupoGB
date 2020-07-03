@@ -40,9 +40,8 @@ namespace MantenimientoGrupoGB.DAL.Context
         {
             modelBuilder.Entity<UsuarioBase>(entity =>
             {
-                entity.HasKey(e => e.IdUsuario);
-
-                entity.Property(e => e.IdUsuario).ValueGeneratedNever();
+                entity.HasKey(e => e.IdUsuario)
+                    .HasName("PK__UsuarioB__5B65BF97ED5F51F9");
 
                 entity.Property(e => e.Apellidos)
                     .IsRequired()
@@ -52,7 +51,7 @@ namespace MantenimientoGrupoGB.DAL.Context
                 entity.Property(e => e.Dui)
                     .IsRequired()
                     .HasColumnName("DUI")
-                    .HasMaxLength(9)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
@@ -61,18 +60,18 @@ namespace MantenimientoGrupoGB.DAL.Context
 
                 entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
-                entity.Property(e => e.FechaNacimiento).HasColumnType("datetime");
+                entity.Property(e => e.FechaNacimiento).HasColumnType("date");
 
                 entity.Property(e => e.Isss)
                     .IsRequired()
                     .HasColumnName("ISSS")
-                    .HasMaxLength(10)
+                    .HasMaxLength(9)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Nit)
                     .IsRequired()
                     .HasColumnName("NIT")
-                    .HasMaxLength(14)
+                    .HasMaxLength(17)
                     .IsFixedLength();
 
                 entity.Property(e => e.Nombres)
@@ -82,7 +81,7 @@ namespace MantenimientoGrupoGB.DAL.Context
 
                 entity.Property(e => e.Telefono)
                     .IsRequired()
-                    .HasMaxLength(12)
+                    .HasMaxLength(14)
                     .IsUnicode(false);
             });
 
